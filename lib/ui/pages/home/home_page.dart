@@ -4,6 +4,7 @@ import 'package:sinajuve_app/ui/pages/icon_pages/indicators_report_page.dart';
 import 'package:sinajuve_app/ui/pages/icon_pages/public_consultations_page.dart';
 import 'package:sinajuve_app/ui/pages/icon_pages/public_pol_map_page.dart';
 import 'package:sinajuve_app/ui/pages/icon_pages/public_pol_sub_page.dart';
+import 'package:sinajuve_app/ui/utils/nav.dart';
 import 'package:sinajuve_app/ui/widgets/drawer/drawer_list.dart';
 
 class HomePage extends StatefulWidget {
@@ -41,7 +42,7 @@ class _HomePageState extends State<HomePage> {
 _body(context) {
   Size size = MediaQuery.of(context).size;
   return Container(
-    padding: const EdgeInsets.fromLTRB(15.0, 220.0, 15.0, 20.0),
+    padding: const EdgeInsets.fromLTRB(15.0, 100.0, 15.0, 20.0),
     decoration: BoxDecoration(
       image: DecorationImage(
         image: AssetImage("assets/images/ilustra-1_pequena.png"),
@@ -57,10 +58,7 @@ _body(context) {
               // Mapa de politicas publicas.
               child: InkWell(
                 onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (BuildContext context) {
-                    return PublicPolMapPage();
-                  }));
+                  push(context, PublicPolMapPage());
                 },
                 child: Image.asset(
                   "assets/images/icones_pin_min_300x300.png",
@@ -74,10 +72,7 @@ _body(context) {
               flex: 1,
               child: InkWell(
                 onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (BuildContext context) {
-                    return PublicPolSubPage();
-                  }));
+                  push(context, PublicPolSubPage());
                 },
                 child: Image.asset(
                   // Subsistema de pol. publicas.
@@ -105,10 +100,7 @@ _body(context) {
               flex: 2,
               child: InkWell(
                 onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (BuildContext context) {
-                    return IndicatorsReportPage();
-                  }));
+                  push(context, IndicatorsReportPage());
                 },
                 child: Image.asset(
                   //Relatorio de indicadores
@@ -126,10 +118,7 @@ _body(context) {
               flex: 2,
               child: InkWell(
                 onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (BuildContext context) {
-                    return PublicConsultationsPage();
-                  }));
+                  push(context, PublicConsultationsPage());
                 },
                 child: Image.asset(
                   //Consultas publicas
@@ -146,7 +135,7 @@ _body(context) {
           children: <Widget>[
             _expandedText("Relatório de Indicadores"),
             SizedBox(
-              height: 40,
+              height: 60,
             ),
             _expandedText("Consultas públicas"),
           ],
@@ -155,21 +144,18 @@ _body(context) {
           children: <Widget>[
             Expanded(
               flex: 2,
-  child: InkWell(
-  onTap: () {
-  Navigator.push(context,
-  MaterialPageRoute(builder: (BuildContext context) {
-  return ForumPage();
-  }));
-  },
-              child: Image.asset(
-                // Forum
-                "assets/images/icones_2_forum.png",
-                width: 100,
-                height: 100,
-                fit: BoxFit.contain,
+              child: InkWell(
+                onTap: () {
+                  push(context, ForumPage());
+                },
+                child: Image.asset(
+                  // Forum
+                  "assets/images/icones_2_forum.png",
+                  width: 100,
+                  height: 100,
+                  fit: BoxFit.contain,
+                ),
               ),
-            ),
             ),
             Expanded(
               flex: 2,
