@@ -1,20 +1,15 @@
-import 'dart:convert';
-
-import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert' as convert;
-
 import 'package:sinajuve_app/ui/utils/prefs.dart';
-class User {
 
+class Usuario {
   String token;
   String userEmail;
   String userNicename;
   String userDisplayName;
 
+  Usuario({this.token, this.userEmail, this.userNicename, this.userDisplayName});
 
-  User({this.token, this.userEmail, this.userNicename, this.userDisplayName});
-
-  User.fromJson(Map<String, dynamic> json) {
+  Usuario.fromJson(Map<String, dynamic> json) {
     token = json['token'];
     userEmail = json['user_email'];
     userNicename = json['user_nicename'];
@@ -47,16 +42,13 @@ class User {
     Prefs.setString("user.prefs", json);
   }
 
-  static Future<User> get() async {
+  static Future<Usuario> get() async {
     String json = await Prefs.getString("user.prefs");
-    if(json.isEmpty) {
+    if (json.isEmpty) {
       return null;
     }
     Map map = convert.json.decode(json);
-    User user = User.fromJson(map);
-    return user;
+    Usuario usuario = Usuario.fromJson(map);
+    return usuario;
   }
-
 }
-
-

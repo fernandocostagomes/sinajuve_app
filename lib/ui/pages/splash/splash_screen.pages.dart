@@ -4,7 +4,6 @@ import 'package:sinajuve_app/ui/pages/home/home_page.dart';
 import 'package:splashscreen/splashscreen.dart';
 
 class SplashScreenPage extends StatefulWidget {
-
   SplashScreenPage({Key key, this.title}) : super(key: key);
   final String title;
 
@@ -19,7 +18,6 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
   }
 }
 
-
 Widget _introScreen() {
   return Stack(
     children: <Widget>[
@@ -28,10 +26,7 @@ Widget _introScreen() {
         gradientBackground: LinearGradient(
           begin: Alignment.topRight,
           end: Alignment.bottomLeft,
-          colors: [
-            Color(0xFFFFFF8D),
-            Color(0xFFFFFF8D)
-          ],
+          colors: [Color(0xFFFFFF8D), Color(0xFFFFFF8D)],
         ),
         navigateAfterSeconds: HomePage(),
         loaderColor: Colors.transparent,
@@ -40,7 +35,7 @@ Widget _introScreen() {
         decoration: BoxDecoration(
           image: DecorationImage(
             image: AssetImage("assets/images/sinajuve_log_flat_2.png"),
-            fit: BoxFit.fitWidth,
+            fit: BoxFit.scaleDown,
           ),
         ),
       ),

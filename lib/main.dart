@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
       title: "Sinajuve",
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.yellow,
+        primaryColor: Colors.amber[200],
       ),
       home: SplashScreenPage(title: 'SplashScreenFlutter'),
     );

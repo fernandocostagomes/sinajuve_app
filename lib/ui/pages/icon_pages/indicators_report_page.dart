@@ -9,9 +9,6 @@ class IndicatorsReportPage extends StatefulWidget {
 }
 
 class _IndicatorsReportPageState extends State<IndicatorsReportPage> {
-  Completer<WebViewController> _controller = Completer<WebViewController>();
-  final Set<String> _favorites = Set<String>();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

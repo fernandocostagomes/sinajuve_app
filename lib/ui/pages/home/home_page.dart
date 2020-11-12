@@ -51,132 +51,147 @@ _body(context) {
     ),
     child: Column(
       children: <Widget>[
-        Row(
-          children: <Widget>[
-            Expanded(
-              flex: 1,
-              // Mapa de politicas publicas.
-              child: InkWell(
-                onTap: () {
-                  push(context, PublicPolMapPage());
-                },
-                child: Image.asset(
-                  "assets/images/icones_pin_min_300x300.png",
-                  width: 100,
-                  height: 100,
-                  fit: BoxFit.contain,
+        Expanded(
+          flex: 2,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              Expanded(
+                flex: 1,
+                // Mapa de politicas publicas.
+                child: InkWell(
+                  onTap: () {
+                    push(context, PublicPolMapPage());
+                  },
+                  child: Image.asset(
+                    "assets/images/icones_pin_min_300x300.png",
+                    width: 100,
+                    height: 100,
+                    fit: BoxFit.contain,
+                  ),
                 ),
               ),
-            ),
-            Expanded(
-              flex: 1,
-              child: InkWell(
-                onTap: () {
-                  push(context, PublicPolSubPage());
-                },
+              Expanded(
+                flex: 1,
+                child: InkWell(
+                  onTap: () {
+                    push(context, PublicPolSubPage());
+                  },
+                  child: Image.asset(
+                    // Subsistema de pol. publicas.
+                    "assets/images/icones_pasta_min_300x300.png",
+                    width: 100,
+                    height: 100,
+                    fit: BoxFit.contain,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+        Expanded(
+          flex: 1,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              _expandedText("Mapa de Políticas Públicas"),
+              _expandedText("Subsistema de Políticas Públicas"),
+            ],
+          ),
+        ),
+        Expanded(
+          flex: 2,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              Expanded(
+                flex: 2,
+                child: InkWell(
+                  onTap: () {
+                    push(context, IndicatorsReportPage());
+                  },
+                  child: Image.asset(
+                    //Relatorio de indicadores
+                    "assets/images/icones_indicadores.png",
+                    width: 100,
+                    height: 100,
+                    fit: BoxFit.contain,
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 40,
+              ),
+              Expanded(
+                flex: 2,
+                child: InkWell(
+                  onTap: () {
+                    push(context, PublicConsultationsPage());
+                  },
+                  child: Image.asset(
+                    //Consultas publicas
+                    "assets/images/icones_lupa_min_300x300.png",
+                    width: 100,
+                    height: 100,
+                    fit: BoxFit.contain,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+        Expanded(
+          flex: 1,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              _expandedText("Relatório de Indicadores"),
+              _expandedText("Consultas públicas"),
+            ],
+          ),
+        ),
+        Expanded(
+          flex: 2,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              Expanded(
+                flex: 2,
+                child: InkWell(
+                  onTap: () {
+                    push(context, ForumPage());
+                  },
+                  child: Image.asset(
+                    // Forum
+                    "assets/images/icones_2_forum.png",
+                    width: 100,
+                    height: 100,
+                    fit: BoxFit.contain,
+                  ),
+                ),
+              ),
+              Expanded(
+                flex: 2,
                 child: Image.asset(
-                  // Subsistema de pol. publicas.
+                  //Noticias
                   "assets/images/icones_pasta_min_300x300.png",
                   width: 100,
                   height: 100,
                   fit: BoxFit.contain,
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
-        Row(
-          children: <Widget>[
-            _expandedText("Mapa de Políticas Públicas"),
-            SizedBox(
-              height: 60,
-            ),
-            _expandedText("Subsistema de Políticas Públicas"),
-          ],
-        ),
-        Row(
-          children: <Widget>[
-            Expanded(
-              flex: 2,
-              child: InkWell(
-                onTap: () {
-                  push(context, IndicatorsReportPage());
-                },
-                child: Image.asset(
-                  //Relatorio de indicadores
-                  "assets/images/icones_indicadores.png",
-                  width: 100,
-                  height: 100,
-                  fit: BoxFit.contain,
-                ),
-              ),
-            ),
-            SizedBox(
-              height: 40,
-            ),
-            Expanded(
-              flex: 2,
-              child: InkWell(
-                onTap: () {
-                  push(context, PublicConsultationsPage());
-                },
-                child: Image.asset(
-                  //Consultas publicas
-                  "assets/images/icones_lupa_min_300x300.png",
-                  width: 100,
-                  height: 100,
-                  fit: BoxFit.contain,
-                ),
-              ),
-            ),
-          ],
-        ),
-        Row(
-          children: <Widget>[
-            _expandedText("Relatório de Indicadores"),
-            SizedBox(
-              height: 60,
-            ),
-            _expandedText("Consultas públicas"),
-          ],
-        ),
-        Row(
-          children: <Widget>[
-            Expanded(
-              flex: 2,
-              child: InkWell(
-                onTap: () {
-                  push(context, ForumPage());
-                },
-                child: Image.asset(
-                  // Forum
-                  "assets/images/icones_2_forum.png",
-                  width: 100,
-                  height: 100,
-                  fit: BoxFit.contain,
-                ),
-              ),
-            ),
-            Expanded(
-              flex: 2,
-              child: Image.asset(
-                //Noticias
-                "assets/images/icones_pasta_min_300x300.png",
-                width: 100,
-                height: 100,
-                fit: BoxFit.contain,
-              ),
-            ),
-          ],
-        ),
-        Row(
-          children: <Widget>[
-            _expandedText("Fórum"),
-            SizedBox(
-              height: 10,
-            ),
-            _expandedText("Notícias"),
-          ],
+        Expanded(
+          flex: 1,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              _expandedText("Fórum"),
+              _expandedText("Notícias"),
+            ],
+          ),
         ),
       ],
     ),

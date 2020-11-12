@@ -1,32 +1,28 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-_onClickDialog(BuildContext context, text){
+alert(BuildContext context, String msg, {Function callback}) {
   showDialog(
     context: context,
     barrierDismissible: false,
     builder: (context) {
       return WillPopScope(
-        onWillPop: ()async => false,
+        onWillPop: () async => false,
         child: AlertDialog(
-          title: Text(text),
+          title: Text("Carros"),
+          content: Text(msg),
           actions: <Widget>[
             FlatButton(
-              child: Text("Cancelar"),
-              onPressed: (){
+              child: Text("OK"),
+              onPressed: () {
                 Navigator.pop(context);
-              },
-            ),
-            FlatButton(
-              child: Text("Ok"),
-              onPressed: (){
-                Navigator.pop(context);
-                print("Ok!!!");
+                if(callback != null) {
+                  callback();
+                }
               },
             )
           ],
         ),
       );
-    }
+    },
   );
 }

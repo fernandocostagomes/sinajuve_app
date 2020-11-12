@@ -1,15 +1,11 @@
-import 'dart:convert';
-import 'dart:math';
-
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sinajuve_app/ui/pages/api_response.dart';
 import 'package:sinajuve_app/ui/pages/home/home_page.dart';
-import 'package:sinajuve_app/ui/pages/login/login_api.dart';
+import 'package:sinajuve_app/ui/pages/login/login.dart';
+import 'package:sinajuve_app/ui/utils/alert.dart';
 import 'package:sinajuve_app/ui/utils/nav.dart';
-
 import 'login_bloc.dart';
-import 'user.dart';
+import 'package:flutter_auth_buttons/flutter_auth_buttons.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -19,11 +15,12 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
   final _bloc = LoginBloc();
-  final _tUsuario = TextEditingController();
-  final _tPwd = TextEditingController();
+  var _tUsuario = TextEditingController();
+  var _tPwd = TextEditingController();
 
   //final _focusSenha = FocusNode();
   bool _showProgress = false;
+  bool _checkedValue = false;
 
   @override
   Widget build(BuildContext context) {
@@ -41,42 +38,111 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   _body(context) {
+    Future<Login> futureLogin = Login.get();
     return Form(
       key: _formKey,
       child: Container(
         padding: EdgeInsets.all(16),
         child: ListView(
           children: <Widget>[
-            _text(
-              "Usuário",
-              "Digite seu usuário",
-              autoFocus: true,
-              controller: _tUsuario,
-              validator: _validateUsuario,
+            FutureBuilder<Login>(
+              future: futureLogin,
+              builder: (context, snapshot) {
+                Login login = snapshot.data;
+                print(">>> login $login");
+                return login != null
+                    ? _text("Usuário",
+                        autoFocus: true,
+                        controller: _tUsuario = new TextEditingController(text: login.login),
+                        validator: _validateUsuario)
+                    : _text("Usuário",
+                        hint: "Digite seu usuário",
+                        autoFocus: true,
+                        controller: _tUsuario,
+                        validator: _validateUsuario);
+              },
             ),
             SizedBox(
               height: 10,
             ),
-            _text(
-              "Senha",
-              "Digite sua senha",
-              controller: _tPwd,
-              pwd: true,
-              validator: _validateSenha,
+            FutureBuilder<Login>(
+              future: futureLogin,
+              builder: (context, snapshot) {
+                Login login = snapshot.data;
+                return login != null
+                    ? _text("Senha",
+                        autoFocus: true,
+                        controller: _tPwd = new TextEditingController(text: login.password),
+                        pwd: true,
+                        validator: _validateSenha)
+                    : _text("Senha",
+                        hint: "Digite sua senha",
+                        autoFocus: true,
+                        controller: _tPwd,
+                        pwd: true,
+                        validator: _validateSenha);
+              },
+            ),
+            CheckboxListTile(
+              contentPadding: EdgeInsets.zero,
+              title: Text("Lembrar senha"),
+              value: _checkedValue,
+              onChanged: (newValue) {
+                setState(() {
+                  _checkedValue = newValue;
+                  if (newValue == true) {
+                    _checkedValue = true;
+                  }
+                });
+              },
+              controlAffinity:
+                  ListTileControlAffinity.leading, //  <-- leading Checkbox
+            ),
+            _button(context, "Login"),
+            Container(
+              margin: EdgeInsets.only(top: 20),
+              child: InkWell(
+                onTap: null,
+                child: Text(
+                  "Cadastre-se",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      fontSize: 20,
+                      color: Colors.blue,
+                      decoration: TextDecoration.underline),
+                ),
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.only(top: 20),
+              child: InkWell(
+                onTap: _onClickCadastrar,
+                child: Text(
+                  "Perdeu a senha?",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      fontSize: 20,
+                      color: Colors.blue,
+                      decoration: TextDecoration.underline),
+                ),
+              ),
             ),
             SizedBox(
               height: 20,
             ),
-            _button(context, "Conectar")
           ],
         ),
       ),
     );
   }
 
+  _onClickCadastrar() async {
+    push(context, HomePage(), replace: true);
+  }
+
   _text(
-    text,
-    hint, {
+    text, {
+    String hint,
     FormFieldValidator<String> validator,
     bool autoFocus,
     TextEditingController controller,
@@ -91,6 +157,19 @@ class _LoginPageState extends State<LoginPage> {
       decoration: InputDecoration(
           labelText: text, hintText: hint, labelStyle: TextStyle(fontSize: 16)),
     );
+  }
+
+  _rememberPwdChanged() {}
+
+  _onClickGoogle() async {
+    // final service = FirebaseService();
+    // ApiResponse response = await service.loginGoogle();
+    //
+    // if (response.ok) {
+    //   push(context, HomePage(), replace: true);
+    // } else {
+    //   alert(context, response.msg);
+    // }
   }
 
   Container _button(context, text) {
@@ -131,11 +210,17 @@ class _LoginPageState extends State<LoginPage> {
     ApiResponse response = await _bloc.login(user, pwd);
 
     if (response.ok) {
-      push(context, HomePage());
-      setState(() {
-        _showProgress = false;
-      });
+      if(_checkedValue){
+        Login login = new Login(login: user, password: pwd);
+        login.save();
+      }
+      pop(context, HomePage());
+    } else {
+      alert(context, response.msg == null ? "Usuário ou senha inválido!" : response.msg);
     }
+    setState(() {
+      _showProgress = false;
+    });
   }
 
   String _validateUsuario(String value) {
