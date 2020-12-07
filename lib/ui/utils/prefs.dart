@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sinajuve_app/ui/pages/unidade/unidade.dart';
 
 class Prefs {
 
@@ -38,5 +39,17 @@ class Prefs {
     var prefs = await SharedPreferences.getInstance();
 
     prefs.setString(key, s);
+  }
+
+  static Future<String> getStringList(String key) async {
+    var prefs = await SharedPreferences.getInstance();
+
+    return prefs.getStringList(key) ?? "";
+  }
+
+  static void setStringList(String key, s) async {
+    var prefs = await SharedPreferences.getInstance();
+
+    prefs.setStringList(key, s);
   }
 }

@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
-import 'package:sinajuve_app/ui/pages/adesao_page/adesao_api.dart';
 import 'package:sinajuve_app/ui/pages/login/usuario.dart';
 import 'package:sinajuve_app/ui/pages/login/roles.dart';
 import '../api_response.dart';
@@ -40,11 +39,11 @@ class LoginApi {
 
       if (response.statusCode == 200) {
         final user = Usuario.fromJson(mapResponse);
-        user.save();
-
-        LoginApi.getRoles(user.token);
-
-        return ApiResponse.ok(result: user);
+        ApiResponse responseRoles = await LoginApi.getRoles(user.token);
+        if(responseRoles.ok){
+          user.save();
+          return ApiResponse.ok(result: user);
+        }
       }
       return ApiResponse.error(msg: mapResponse["message"]);
     } catch (error, exception) {
@@ -79,7 +78,7 @@ class LoginApi {
       if (response.statusCode == 200) {
         final roles = Roles.parseJson(await completer.future);
         roles.save();
-        AdesaoApi.getData();
+        //AdesaoApi.getData();
         return ApiResponse.ok(result: roles);
       }
       return ApiResponse.error(msg: "Error");

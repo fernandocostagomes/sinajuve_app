@@ -1,18 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:sinajuve_app/ui/pages/icon_pages/forum_page.dart';
-import 'package:sinajuve_app/ui/pages/icon_pages/indicators_report_page.dart';
-import 'package:sinajuve_app/ui/pages/icon_pages/public_consultations_page.dart';
-import 'package:sinajuve_app/ui/pages/icon_pages/public_pol_map_page.dart';
-import 'package:sinajuve_app/ui/pages/icon_pages/public_pol_sub_page.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:sinajuve_app/ui/pages/home/icon_pages/forum_page.dart';
+import 'package:sinajuve_app/ui/pages/home/icon_pages/indicators_report_page.dart';
+import 'package:sinajuve_app/ui/pages/home/icon_pages/public_consultations_page.dart';
+import 'package:sinajuve_app/ui/pages/home/icon_pages/public_pol_map_page.dart';
+import 'package:sinajuve_app/ui/pages/home/icon_pages/public_pol_sub_page.dart';
 import 'package:sinajuve_app/ui/utils/nav.dart';
 import 'package:sinajuve_app/ui/widgets/drawer/drawer_list.dart';
 
+import 'icon_pages/forum_page.dart';
+import 'icon_pages/indicators_report_page.dart';
+import 'icon_pages/public_consultations_page.dart';
+import 'icon_pages/public_pol_map_page.dart';
+import 'icon_pages/public_pol_sub_page.dart';
+
 class HomePage extends StatefulWidget {
+
   @override
   _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

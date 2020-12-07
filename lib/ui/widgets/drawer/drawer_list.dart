@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:sinajuve_app/ui/pages/adesao_page/unidade_juventude.dart';
-import 'package:sinajuve_app/ui/pages/api_response.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:sinajuve_app/ui/pages/adesao/adesao.dart';
 import 'package:sinajuve_app/ui/pages/home/home_page.dart';
-import 'package:sinajuve_app/ui/pages/icon_pages/public_consultations_page.dart';
-import 'package:sinajuve_app/ui/pages/icon_pages/public_pol_sub_page.dart';
 import 'package:sinajuve_app/ui/pages/login/login.dart';
-import 'package:sinajuve_app/ui/pages/login/login_bloc.dart';
 import 'package:sinajuve_app/ui/pages/login/login_page.dart';
 import 'package:sinajuve_app/ui/pages/login/roles.dart';
 import 'package:sinajuve_app/ui/pages/login/usuario.dart';
+import 'package:sinajuve_app/ui/pages/adesao/adesao_page.dart';
+import 'package:sinajuve_app/ui/pages/unidade/unidade_tipo_page.dart';
 import 'package:sinajuve_app/ui/utils/nav.dart';
 
 class DrawerList extends StatefulWidget {
@@ -43,19 +42,19 @@ class _DrawerListState extends State<DrawerList> {
               future: futureUser,
               builder: (context, snapshot) {
                 Usuario usuario = snapshot.data;
-                usuario != null ? enterExit = true : enterExit = false;
-                return enterExit == true ? Container() : _listTileEnter();
+                //usuario != null ? enterExit = true : enterExit = false;
+                //return enterExit == true ? Container() : _listTileEnter();
+                return usuario != null ? Container() : _listTileEnter();
               },
             ),
             _getFutureBuilder(futureRole, "gerente"),
-            _getFutureBuilder(futureRole, "avaliador"),
+            _getFutureBuilder(futureRole, "avaliador_sinajuve"),
             _getFutureBuilder(futureRole, "gestor"),
             ListTile(
               leading: Icon(Icons.help),
               title: Text("Ajuda"),
               subtitle: Text("Dúvidas sobre o Sinajuve..."),
               onTap: () {
-                _onClickLogin(context);
               },
             ),
             //ListTile builder logout
@@ -87,17 +86,6 @@ class _DrawerListState extends State<DrawerList> {
           return Container();
       },
     );
-  }
-
-  void _onClickLogin(context) async {
-    String user = 'appgerente';
-    String pwd = "app@ibict2020";
-    final _bloc = LoginBloc();
-    ApiResponse response = await _bloc.login(user, pwd);
-
-    if (response.ok) {
-      push(context, HomePage());
-    }
   }
 
   bool _isRoles(Roles pRoles, String pRole){
@@ -158,13 +146,13 @@ class _DrawerListState extends State<DrawerList> {
       case "gestor":
       case "quase_gestor":
       case "futuro_gestor":
-        push(context, UnidadeJuventude());
+        push(context, AdesaoPage());
         break;
-      case "avaliador":
-        push(context, PublicPolSubPage());
+      case "avaliador_sinajuve":
+        push(context, UnidadeTipoPage("avaliador"));
         break;
       case "gerente":
-        push(context, PublicConsultationsPage());
+        push(context, UnidadeTipoPage("gerente"));
         break;
     }
   }
@@ -205,9 +193,23 @@ class _DrawerListState extends State<DrawerList> {
   }
   
   _onClickLogout(BuildContext context) {
-    Usuario.clear();
-    Roles.clear();
-    Login.clear();
-    push(context, HomePage());
+    try {
+      Usuario.clear();
+      Roles.clear();
+      Login.clear();
+      Adesao.clear();
+      Fluttertoast.showToast(
+          msg: "Logoff efetuado com sucesso!",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.SNACKBAR,
+          timeInSecForIosWeb: 3,
+          backgroundColor: Colors.white,
+          textColor: Colors.black,
+          fontSize: 16.0
+      );
+      push(context, HomePage( ));
+    } on Exception catch (exception) {
+    } catch (error) {
+    }
   }
 }

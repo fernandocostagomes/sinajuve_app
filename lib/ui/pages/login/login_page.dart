@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:sinajuve_app/ui/pages/api_response.dart';
 import 'package:sinajuve_app/ui/pages/home/home_page.dart';
 import 'package:sinajuve_app/ui/pages/login/login.dart';
 import 'package:sinajuve_app/ui/utils/alert.dart';
 import 'package:sinajuve_app/ui/utils/nav.dart';
 import 'login_bloc.dart';
-import 'package:flutter_auth_buttons/flutter_auth_buttons.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -17,10 +17,17 @@ class _LoginPageState extends State<LoginPage> {
   final _bloc = LoginBloc();
   var _tUsuario = TextEditingController();
   var _tPwd = TextEditingController();
+  var user = Login();
 
   //final _focusSenha = FocusNode();
   bool _showProgress = false;
   bool _checkedValue = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _checkUser();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,11 +39,6 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  @override
-  void initState() {
-    super.initState();
-  }
-
   _body(context) {
     Future<Login> futureLogin = Login.get();
     return Form(
@@ -45,44 +47,27 @@ class _LoginPageState extends State<LoginPage> {
         padding: EdgeInsets.all(16),
         child: ListView(
           children: <Widget>[
-            FutureBuilder<Login>(
-              future: futureLogin,
-              builder: (context, snapshot) {
-                Login login = snapshot.data;
-                print(">>> login $login");
-                return login != null
-                    ? _text("Usuário",
-                        autoFocus: true,
-                        controller: _tUsuario = new TextEditingController(text: login.login),
-                        validator: _validateUsuario)
-                    : _text("Usuário",
-                        hint: "Digite seu usuário",
-                        autoFocus: true,
-                        controller: _tUsuario,
-                        validator: _validateUsuario);
-              },
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            FutureBuilder<Login>(
-              future: futureLogin,
-              builder: (context, snapshot) {
-                Login login = snapshot.data;
-                return login != null
-                    ? _text("Senha",
-                        autoFocus: true,
-                        controller: _tPwd = new TextEditingController(text: login.password),
-                        pwd: true,
-                        validator: _validateSenha)
-                    : _text("Senha",
-                        hint: "Digite sua senha",
-                        autoFocus: true,
-                        controller: _tPwd,
-                        pwd: true,
-                        validator: _validateSenha);
-              },
-            ),
+            _text("Usuário",
+                autoFocus: true,
+                controller: _tUsuario =
+                new TextEditingController(
+                    text: user != null
+                    ? user.login
+                    : ""),
+                hint: user == null ? "Digite seu usuário" : null,
+                validator: _validateUsuario),
+            _text("Senha",
+                autoFocus: true,
+                controller: _tPwd =
+                new TextEditingController(
+                    text: user != null
+                    ? user.password
+                    : null),
+                hint: user != null
+                    ? null
+                    : "Digite sua senha",
+                pwd: true,
+                validator: _validateSenha),
             CheckboxListTile(
               contentPadding: EdgeInsets.zero,
               title: Text("Lembrar senha"),
@@ -95,16 +80,16 @@ class _LoginPageState extends State<LoginPage> {
                   }
                 });
               },
-              controlAffinity:
-                  ListTileControlAffinity.leading, //  <-- leading Checkbox
+              controlAffinity: ListTileControlAffinity
+                  .leading, //  <-- leading Checkbox
             ),
             _button(context, "Login"),
             Container(
-              margin: EdgeInsets.only(top: 20),
+              margin: EdgeInsets.only(
+                  top: 20),
               child: InkWell(
                 onTap: null,
-                child: Text(
-                  "Cadastre-se",
+                child: Text("Cadastre-se",
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       fontSize: 20,
@@ -114,14 +99,16 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
             Container(
-              margin: EdgeInsets.only(top: 20),
-              child: InkWell(
+              margin: EdgeInsets.only(
+                top: 20,
+              ),
+              child:
+              InkWell(
                 onTap: _onClickCadastrar,
-                child: Text(
-                  "Perdeu a senha?",
+                child: Text("Perdeu a senha?",
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                      fontSize: 20,
+                    fontSize: 20,
                       color: Colors.blue,
                       decoration: TextDecoration.underline),
                 ),
@@ -140,8 +127,7 @@ class _LoginPageState extends State<LoginPage> {
     push(context, HomePage(), replace: true);
   }
 
-  _text(
-    text, {
+  _text(text, {
     String hint,
     FormFieldValidator<String> validator,
     bool autoFocus,
@@ -159,19 +145,6 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  _rememberPwdChanged() {}
-
-  _onClickGoogle() async {
-    // final service = FirebaseService();
-    // ApiResponse response = await service.loginGoogle();
-    //
-    // if (response.ok) {
-    //   push(context, HomePage(), replace: true);
-    // } else {
-    //   alert(context, response.msg);
-    // }
-  }
-
   Container _button(context, text) {
     return Container(
       height: 46,
@@ -179,17 +152,17 @@ class _LoginPageState extends State<LoginPage> {
         color: Colors.blue,
         child: _showProgress
             ? Center(
-                child: CircularProgressIndicator(
-                  valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-                ),
-              )
+          child: CircularProgressIndicator(
+            valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+          ),
+        )
             : Text(
-                text,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 22,
-                ),
-              ),
+          text,
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 22,
+          ),
+        ),
         onPressed: () => _onClickLogin(context),
       ),
     );
@@ -199,44 +172,158 @@ class _LoginPageState extends State<LoginPage> {
     if (!_formKey.currentState.validate()) {
       return;
     }
-
     String user = _tUsuario.text;
     String pwd = _tPwd.text;
 
     setState(() {
       _showProgress = true;
     });
-
     ApiResponse response = await _bloc.login(user, pwd);
 
     if (response.ok) {
-      if(_checkedValue){
+      if (_checkedValue) {
         Login login = new Login(login: user, password: pwd);
         login.save();
       }
-      pop(context, HomePage());
+      Fluttertoast.showToast(
+          msg: "Login efetuado com sucesso!",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.SNACKBAR,
+          timeInSecForIosWeb: 3,
+          backgroundColor: Colors.white,
+          textColor: Colors.black,
+          fontSize: 16.0
+      );
+      push(context, HomePage());
     } else {
-      alert(context, response.msg == null ? "Usuário ou senha inválido!" : response.msg);
+      alert(context,
+          response.msg == null ? "Usuário ou senha inválido!" : response.msg);
     }
     setState(() {
       _showProgress = false;
     });
   }
 
-  String _validateUsuario(String value) {
-    if (value.isEmpty) {
-      return "Digite o usuário";
-    }
-    return null;
-  }
-
-  String _validateSenha(String value) {
-    if (value.isEmpty) {
-      return "Digite a senha";
-    }
-    if (value.length < 6) {
-      return "A senha está menor do que o permitido";
-    }
-    return null;
+  _checkUser() async {
+    user = await Login.get();
   }
 }
+
+String _validateUsuario(String value) {
+  if (value.isEmpty) {
+    return "Digite o usuário";
+  }
+  return null;
+}
+
+String _validateSenha(String value) {
+  if (value.isEmpty) {
+    return "Digite a senha";
+  }
+  if (value.length < 6) {
+    return "A senha está menor do que o permitido";
+  }
+  return null;
+}
+
+
+// _body(context) {
+//   Future<Login> futureLogin = Login.get();
+//   return Form(
+//     key: _formKey,
+//     child: Container(
+//       padding: EdgeInsets.all(16),
+//       child: ListView(
+//         children: <Widget>[
+//           FutureBuilder<Login>(
+//             future: futureLogin,
+//             builder: (context, snapshot) {
+//               Login login = snapshot.data;
+//               print(">>> login $login");
+//               return login != null
+//                   ? _text("Usuário",
+//                   autoFocus: true,
+//                   controller: _tUsuario =
+//                   new TextEditingController(text: login.login),
+//                   validator: _validateUsuario)
+//                   : _text("Usuário",
+//                   hint: "Digite seu usuário",
+//                   autoFocus: true,
+//                   controller: _tUsuario,
+//                   validator: _validateUsuario);
+//             },
+//           ),
+//           SizedBox(
+//             height: 10,
+//           ),
+//           FutureBuilder<Login>(
+//             future: futureLogin,
+//             builder: (context, snapshot) {
+//               Login login = snapshot.data;
+//               return login != null
+//                   ? _text("Senha",
+//                   autoFocus: true,
+//                   controller: _tPwd =
+//                   new TextEditingController(text: login.password),
+//                   pwd: true,
+//                   validator: _validateSenha)
+//                   : _text("Senha",
+//                   hint: "Digite sua senha",
+//                   autoFocus: true,
+//                   controller: _tPwd,
+//                   pwd: true,
+//                   validator: _validateSenha);
+//             },
+//           ),
+//           CheckboxListTile(
+//             contentPadding: EdgeInsets.zero,
+//             title: Text("Lembrar senha"),
+//             value: _checkedValue,
+//             onChanged: (newValue) {
+//               setState(() {
+//                 _checkedValue = newValue;
+//                 if (newValue == true) {
+//                   _checkedValue = true;
+//                 }
+//               });
+//             },
+//             controlAffinity:
+//             ListTileControlAffinity.leading, //  <-- leading Checkbox
+//           ),
+//           _button(context, "Login"),
+//           Container(
+//             margin: EdgeInsets.only(top: 20),
+//             child: InkWell(
+//               onTap: null,
+//               child: Text(
+//                 "Cadastre-se",
+//                 textAlign: TextAlign.center,
+//                 style: TextStyle(
+//                     fontSize: 20,
+//                     color: Colors.blue,
+//                     decoration: TextDecoration.underline),
+//               ),
+//             ),
+//           ),
+//           Container(
+//             margin: EdgeInsets.only(top: 20),
+//             child: InkWell(
+//               onTap: _onClickCadastrar,
+//               child: Text(
+//                 "Perdeu a senha?",
+//                 textAlign: TextAlign.center,
+//                 style: TextStyle(
+//                     fontSize: 20,
+//                     color: Colors.blue,
+//                     decoration: TextDecoration.underline),
+//               ),
+//             ),
+//           ),
+//           SizedBox(
+//             height: 20,
+//           ),
+//         ],
+//       ),
+//     ),
+//   );
+// }

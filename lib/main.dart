@@ -17,7 +17,12 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primaryColor: Colors.amber[200],
       ),
-      home: SplashScreenPage(title: 'SplashScreenFlutter'),
+      initialRoute:'home',
+      routes: {
+        'home': (BuildContext context) => SplashScreenPage(title: 'SplashScreenFlutter'),
+      },
+
+//      home: SplashScreenPage(title: 'SplashScreenFlutter'),
     );
   }
 }
