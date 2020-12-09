@@ -36,48 +36,41 @@ Container body_og(context, UnidadeDetalhes pUnidadeDetalhes) {
                   _listTile("Documento de criação do Organismo Gestor:",
                       fontSize: 16,
                       subtitle:
-                          "Documento 1:  Sistema-para-Gestão-do-Prêmio-de-inovação-11.pdf",
+                          unidadeDetalhes.documentoDeCriacaoDoOrganismoGestor,
+                    url:  unidadeDetalhes.documentoDeCriacaoDoOrganismoGestor,
                       leading: true,
-                      url:
-                          "https://sinajuve.ibict.br/wp-content/uploads/2020/11/Sistema-para-Gest%C3%A3o-do-Pr%C3%AAmio-de-inova%C3%A7%C3%A3o.pdf"),
+                  ),
                   _listTile("Portaria de nomeação do(a) gestor(a):",
                       fontSize: 16,
-                      subtitle:
-                          "Documento 2: Sistema-para-Gestão-do-Prêmio-de-inovação-1.pdf",
+                      subtitle: unidadeDetalhes.portariaDeNomeacaoDoaGestora,
+                      url: unidadeDetalhes.portariaDeNomeacaoDoaGestora,
                       leading: true,
-                      url:
-                          "https://sinajuve.ibict.br/wp-content/uploads/2020/11/Sistema-para-Gest%C3%A3o-do-Pr%C3%AAmio-de-inova%C3%A7%C3%A3o-1.pdf"),
+                  ),
                   _listTile("Termo de Pactuação Federativo:",
                       fontSize: 16,
-                      subtitle:
-                          "Documento 3: Sistema-para-Gestão-do-Prêmio-de-inovação-2.pdf",
+                      subtitle: unidadeDetalhes.termoDePactuacaoFederativo,
+                    url: unidadeDetalhes.termoDePactuacaoFederativo,
                       leading: true,
-                      url:
-                          "https://sinajuve.ibict.br/wp-content/uploads/2020/11/Sistema-para-Gest%C3%A3o-do-Pr%C3%AAmio-de-inova%C3%A7%C3%A3o-2.pdf"),
+                    ),
                   _listTile("Termo de adesão da unidades de juventude:",
                       fontSize: 16,
-                      subtitle:
-                          "Documento 4: Sistema-para-Gestão-do-Prêmio-de-inovação-3.pdf",
+                      subtitle: unidadeDetalhes.termoDeAdesaoDaUnidadeDeJuventude,
+                      url: unidadeDetalhes.termoDeAdesaoDaUnidadeDeJuventude,
                       leading: true,
-                      url:
-                          "https://sinajuve.ibict.br/wp-content/uploads/2020/11/Sistema-para-Gest%C3%A3o-do-Pr%C3%AAmio-de-inova%C3%A7%C3%A3o-3.pdf"),
+                  ),
                   _listTile(
                       "Comprovante de instituição do Conselho de Juventude:",
                       fontSize: 16,
-                      subtitle:
-                          "Documento 5: Sistema-para-Gestão-do-Prêmio-de-inovação-4.pdf",
+                      subtitle: unidadeDetalhes.comprovanteDeInstituicaoDoConselhoDeJuventude,
+                      url: unidadeDetalhes.comprovanteDeInstituicaoDoConselhoDeJuventude,
                       leading: true,
-                      url:
-                          "https://sinajuve.ibict.br/wp-content/uploads/2020/11/Sistema-para-Gest%C3%A3o-do-Pr%C3%AAmio-de-inova%C3%A7%C3%A3o-4.pdf",
                       context: context),
-                  _listTile(
-                      "Cópia de documento de identificação com foto e assinatura:",
-                      fontSize: 16,
-                      subtitle:
-                          "Documento 6: Sistema-para-Gestão-do-Prêmio-de-inovação-5.pdf",
-                      leading: true,
-                      url:
-                          "https://sinajuve.ibict.br/wp-content/uploads/2020/11/Sistema-para-Gest%C3%A3o-do-Pr%C3%AAmio-de-inova%C3%A7%C3%A3o-5.pdf"),
+                  // _listTile(
+                  //     "Cópia de documento de identificação com foto e assinatura:",
+                  //     fontSize: 16,
+                  //     subtitle: "",
+                  //     leading: true,
+                  //     url: ""),
                 ]),
             ExpansionTile(
                 title: _titleContainer(
@@ -303,23 +296,20 @@ Container body_cj(context, UnidadeDetalhes pUnidadeDetalhes) {
                 children: [
                   _listTile("Envie o documento de criação do conselho:",
                       context: context,
-                      subtitle:
-                          "Documento 1:  Sistema-para-Gestão-do-Prêmio-de-inovação-11.pdf",
+                      subtitle: unidadeDetalhes.documentoDeCriacaoDoConselho,
                       leading: true,
-                      url:
-                          "https://sinajuve.ibict.br/wp-content/uploads/2020/11/Sistema-para-Gest%C3%A3o-do-Pr%C3%AAmio-de-inova%C3%A7%C3%A3o-11.pdf"),
+                      url: unidadeDetalhes.documentoDeCriacaoDoConselho,
+                  ),
                   _listTile("Envie o ato constitutivo:",
-                      subtitle:
-                          "Documento 2: Sistema-para-Gestão-do-Prêmio-de-inovação-12.pdf",
+                      subtitle: unidadeDetalhes.atoConstitutivo,
                       leading: true,
-                      url:
-                          "https://sinajuve.ibict.br/wp-content/uploads/2020/11/Sistema-para-Gest%C3%A3o-do-Pr%C3%AAmio-de-inova%C3%A7%C3%A3o-12.pdf"),
+                      url: unidadeDetalhes.atoConstitutivo,
+                  ),
                   _listTile("Envie a ata de eleição dos conselheiros:",
-                      subtitle:
-                          "Documento 3: Sistema-para-Gestão-do-Prêmio-de-inovação-13.pdf",
+                      subtitle: unidadeDetalhes.ataDeEleicaoDosConselheiros,
                       leading: true,
-                      url:
-                          "https://sinajuve.ibict.br/wp-content/uploads/2020/11/Sistema-para-Gest%C3%A3o-do-Pr%C3%AAmio-de-inova%C3%A7%C3%A3o-13.pdf"),
+                      url: unidadeDetalhes.ataDeEleicaoDosConselheiros,
+                  ),
                 ]),
             ExpansionTile(
                 title: Container(
@@ -531,38 +521,39 @@ Container body_osc(context, UnidadeDetalhes pUnidadeDetalhes) {
                   _listTile(
                       "Ata de fundação da Organização da Sociedade Civil (OSC):",
                       subtitle:
-                          "Documento 1: Sistema-para-Gestão-do-Prêmio-de-inovação-6.pdf",
-                      leading: true,
+                      unidadeDetalhes.ataDeFundacaoDaOrganizacaoDaSociedadeCivilOsc,
                       url:
-                          "https://sinajuve.ibict.br/wp-content/uploads/2020/11/Sistema-para-Gest%C3%A3o-do-Pr%C3%AAmio-de-inova%C3%A7%C3%A3o-6."),
+                      unidadeDetalhes.ataDeFundacaoDaOrganizacaoDaSociedadeCivilOsc,
+                      leading: true),
                   _listTile(
-                      "Estatuto aprovado da Organização da Sociedade Civil (OSC):",
-                      subtitle:
-                          "Documento 2: Sistema-para-Gestão-do-Prêmio-de-inovação-7.pdf",
-                      leading: true,
-                      url:
-                          "https://sinajuve.ibict.br/wp-content/uploads/2020/11/Sistema-para-Gest%C3%A3o-do-Pr%C3%AAmio-de-inova%C3%A7%C3%A3o-7.pdf"),
+                    "Estatuto aprovado da Organização da Sociedade Civil (OSC):",
+                    subtitle: unidadeDetalhes
+                        .estatutoAprovadoDaOrganizacaoDaSociedadeCivilOsc,
+                    url: unidadeDetalhes
+                        .estatutoAprovadoDaOrganizacaoDaSociedadeCivilOsc,
+                    leading: true,
+                  ),
                   _listTile(
                       "Registro em cartório da Organização da Sociedade Civil (OSC):",
-                      subtitle:
-                          "Documento 3: Sistema-para-Gestão-do-Prêmio-de-inovação-8.pdf",
+                      subtitle: unidadeDetalhes
+                          .registroEmCartorioDaOrganizacaoDaSociedadeCivilOsc,
                       leading: true,
-                      url:
-                          "https://sinajuve.ibict.br/wp-content/uploads/2020/11/Sistema-para-Gest%C3%A3o-do-Pr%C3%AAmio-de-inova%C3%A7%C3%A3o-8.pdf"),
+                      url: unidadeDetalhes
+                          .registroEmCartorioDaOrganizacaoDaSociedadeCivilOsc),
                   _listTile(
-                      "Comprovante de inscrição e de situação cadastral no CNPJ:",
-                      subtitle:
-                          "Documento 4: Sistema-para-Gestão-do-Prêmio-de-inovação-9.pdf",
-                      leading: true,
-                      context: buildContext,
-                      url:
-                          "https://sinajuve.ibict.br/wp-content/uploads/2020/11/Sistema-para-Gest%C3%A3o-do-Pr%C3%AAmio-de-inova%C3%A7%C3%A3o-9.pdf"),
-                  _listTile("Ata de eleição ou posse (mais recente):",
-                      subtitle:
-                          "Documento 5: Sistema-para-Gestão-do-Prêmio-de-inovação-10.pdf",
-                      leading: true,
-                      url:
-                          "https://sinajuve.ibict.br/wp-content/uploads/2020/11/Sistema-para-Gest%C3%A3o-do-Pr%C3%AAmio-de-inova%C3%A7%C3%A3o-10.pdf"),
+                    "Comprovante de inscrição e de situação cadastral no CNPJ:",
+                    subtitle: unidadeDetalhes
+                        .comprovanteDeInscricaoEDeSituacaoCadastralNoCnpj,
+                    leading: true,
+                    url: unidadeDetalhes
+                        .comprovanteDeInscricaoEDeSituacaoCadastralNoCnpj,
+                  ),
+                  _listTile(
+                    "Ata de eleição ou posse (mais recente):",
+                    subtitle: unidadeDetalhes.ataDeEleicaoOuPosseMaisRecente,
+                    leading: true,
+                    url: unidadeDetalhes.ataDeEleicaoOuPosseMaisRecente,
+                  ),
                 ]),
             ExpansionTile(
                 title: _titleContainer(
@@ -681,9 +672,9 @@ Card _listTile(title,
         ),
       ),
     ),
-    leading: leading == true ? Icon(Icons.picture_as_pdf_outlined) : null,
+    leading: leading == true ? Icon(Icons.picture_as_pdf) : null,
     subtitle: Text(subtitle == null ? " " : subtitle),
-    tileColor: subtitle == null ? Colors.grey : Colors.white,
+    //tileColor: subtitle == null ? Colors.grey : Colors.white,
     onTap: () {
       url != "" ? startDownload(context, url, subtitle) : null;
     },

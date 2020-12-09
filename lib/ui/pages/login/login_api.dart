@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:sinajuve_app/ui/pages/login/usuario.dart';
 import 'package:sinajuve_app/ui/pages/login/roles.dart';
+import 'package:sinajuve_app/ui/utils/connectivity_infra.dart';
 import '../api_response.dart';
 
 class LoginApi {

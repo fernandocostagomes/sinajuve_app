@@ -3,6 +3,25 @@ import 'package:sinajuve_app/ui/utils/prefs.dart';
 
 class Adesao {
   String tipoDeUnidade;
+  //Documentos CJ
+  String documentoDeCriacaoDoConselho;
+  String atoConstitutivo;
+  String ataDeEleicaoDosConselheiros;
+
+  //Documentos OG
+  String documentoDeCriacaoDoOrganismoGestor;
+  String portariaDeNomeacaoDoaGestora;
+  String termoDePactuacaoFederativo;
+  String termoDeAdesaoDaUnidadeDeJuventude;
+  String comprovanteDeInstituicaoDoConselhoDeJuventude;
+
+  //Documentos OSC
+  String ataDeFundacaoDaOrganizacaoDaSociedadeCivilOsc;
+  String estatutoAprovadoDaOrganizacaoDaSociedadeCivilOsc;
+  String registroEmCartorioDaOrganizacaoDaSociedadeCivilOsc;
+  String comprovanteDeInscricaoEDeSituacaoCadastralNoCnpj;
+  String ataDeEleicaoOuPosseMaisRecente;
+
   String nomeCompletoDoGovernadoraOuPrefeitoa;
   String eMailDoGovernadoraOuPrefeitoa;
   String telefoneDoGovernadoraOuPrefeitoa;
@@ -135,6 +154,19 @@ class Adesao {
 
   Adesao(
       {this.tipoDeUnidade,
+        this.ataDeFundacaoDaOrganizacaoDaSociedadeCivilOsc,
+        this.estatutoAprovadoDaOrganizacaoDaSociedadeCivilOsc,
+        this.registroEmCartorioDaOrganizacaoDaSociedadeCivilOsc,
+        this.comprovanteDeInscricaoEDeSituacaoCadastralNoCnpj,
+        this.ataDeEleicaoOuPosseMaisRecente,
+        this.documentoDeCriacaoDoConselho,
+        this.atoConstitutivo,
+        this.ataDeEleicaoDosConselheiros,
+        this.documentoDeCriacaoDoOrganismoGestor,
+        this.portariaDeNomeacaoDoaGestora,
+        this.termoDePactuacaoFederativo,
+        this.termoDeAdesaoDaUnidadeDeJuventude,
+        this.comprovanteDeInstituicaoDoConselhoDeJuventude,
         this.nomeCompletoDoGovernadoraOuPrefeitoa,
         this.eMailDoGovernadoraOuPrefeitoa,
         this.telefoneDoGovernadoraOuPrefeitoa,
@@ -266,6 +298,27 @@ class Adesao {
 
   Adesao.fromJson(Map<String, dynamic> json) {
     tipoDeUnidade = json['tipo_de_unidade'];
+    ataDeFundacaoDaOrganizacaoDaSociedadeCivilOsc =
+    json['ata_de_fundacao_da_organizacao_da_sociedade_civil_osc'];
+    estatutoAprovadoDaOrganizacaoDaSociedadeCivilOsc =
+    json['estatuto_aprovado_da_organizacao_da_sociedade_civil_osc'];
+    registroEmCartorioDaOrganizacaoDaSociedadeCivilOsc =
+    json['registro_em_cartorio_da_organizacao_da_sociedade_civil_osc'];
+    comprovanteDeInscricaoEDeSituacaoCadastralNoCnpj =
+    json['comprovante_de_inscricao_e_de_situacao_cadastral_no_cnpj'];
+    ataDeEleicaoOuPosseMaisRecente =
+    json['ata_de_eleicao_ou_posse_mais_recente'];
+    documentoDeCriacaoDoConselho = json['documento_de_criacao_do_conselho'];
+    atoConstitutivo = json['ato_constitutivo'];
+    ataDeEleicaoDosConselheiros = json['ata_de_eleicao_dos_conselheiros'];
+    documentoDeCriacaoDoOrganismoGestor =
+    json['documento_de_criacao_do_organismo_gestor'];
+    portariaDeNomeacaoDoaGestora = json['portaria_de_nomeacao_doa_gestora'];
+    termoDePactuacaoFederativo = json['termo_de_pactuacao_federativo'];
+    termoDeAdesaoDaUnidadeDeJuventude =
+    json['termo_de_adesao_da_unidade_de_juventude'];
+    comprovanteDeInstituicaoDoConselhoDeJuventude =
+    json['comprovante_de_instituicao_do_conselho_de_juventude'];
     nomeCompletoDoGovernadoraOuPrefeitoa =
     json['nome_completo_do_governadora_ou_prefeitoa'];
     eMailDoGovernadoraOuPrefeitoa = json['e-mail_do_governadora_ou_prefeitoa'];
@@ -453,6 +506,29 @@ class Adesao {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['tipo_de_unidade'] = this.tipoDeUnidade;
+    data['ata_de_fundacao_da_organizacao_da_sociedade_civil_osc'] =
+        this.ataDeFundacaoDaOrganizacaoDaSociedadeCivilOsc;
+    data['estatuto_aprovado_da_organizacao_da_sociedade_civil_osc'] =
+        this.estatutoAprovadoDaOrganizacaoDaSociedadeCivilOsc;
+    data['registro_em_cartorio_da_organizacao_da_sociedade_civil_osc'] =
+        this.registroEmCartorioDaOrganizacaoDaSociedadeCivilOsc;
+    data['comprovante_de_inscricao_e_de_situacao_cadastral_no_cnpj'] =
+        this.comprovanteDeInscricaoEDeSituacaoCadastralNoCnpj;
+    data['ata_de_eleicao_ou_posse_mais_recente'] =
+        this.ataDeEleicaoOuPosseMaisRecente;
+    data['documento_de_criacao_do_conselho'] =
+        this.documentoDeCriacaoDoConselho;
+    data['ato_constitutivo'] = this.atoConstitutivo;
+    data['ata_de_eleicao_dos_conselheiros'] = this.ataDeEleicaoDosConselheiros;
+    data['documento_de_criacao_do_organismo_gestor'] =
+        this.documentoDeCriacaoDoOrganismoGestor;
+    data['portaria_de_nomeacao_doa_gestora'] =
+        this.portariaDeNomeacaoDoaGestora;
+    data['termo_de_pactuacao_federativo'] = this.termoDePactuacaoFederativo;
+    data['termo_de_adesao_da_unidade_de_juventude'] =
+        this.termoDeAdesaoDaUnidadeDeJuventude;
+    data['comprovante_de_instituicao_do_conselho_de_juventude'] =
+        this.comprovanteDeInstituicaoDoConselhoDeJuventude;
     data['nome_completo_do_governadora_ou_prefeitoa'] =
         this.nomeCompletoDoGovernadoraOuPrefeitoa;
     data['e-mail_do_governadora_ou_prefeitoa'] =

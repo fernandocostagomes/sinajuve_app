@@ -24,7 +24,6 @@ class Roles {
     if(json.contains("gestor") || json.contains("quase_gestor") || json.contains("futuro_gestor")){
       listRoles.add("gestor");
     }
-    print(listRoles);
     roles = listRoles;
   }
 

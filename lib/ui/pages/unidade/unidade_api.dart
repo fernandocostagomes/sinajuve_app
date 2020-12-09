@@ -48,7 +48,6 @@ class UnidadeApi {
         return ApiResponse.error(msg: response.statusCode.toString());
       }
     } catch (error, exception) {
-      print("Error ao solicitar dados: $error > $exception");
       return ApiResponse.error(msg: "Não foi possível baixar os dados.");
     }
     return ApiResponse.error(msg: "Erro desconhecido.");
@@ -94,7 +93,6 @@ class UnidadeApi {
       }
       return ApiResponse.error(msg: mapResponse["message"]);
     } catch (error, exception) {
-      print("Error ao solicitar dados: $error > $exception");
       return ApiResponse.error(msg: "Não foi baixar os dados.");
     }
   }

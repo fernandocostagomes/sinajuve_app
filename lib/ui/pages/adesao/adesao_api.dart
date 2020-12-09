@@ -47,7 +47,6 @@ class AdesaoApi {
         }
       return ApiResponse.error(msg: mapResponse["message"]);
     } catch (error, exception) {
-      print("Error ao solicitar dados: $error > $exception");
       return ApiResponse.error(msg: "Não foi baixar os dados.");
     }
   }

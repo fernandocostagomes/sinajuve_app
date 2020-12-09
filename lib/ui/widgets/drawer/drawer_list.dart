@@ -118,12 +118,12 @@ class _DrawerListState extends State<DrawerList> {
       case "avaliador_sinajuve":
         title = "Unidades em análise";
         subtitle = "Visualizar unidades em análise";
-        iconData = Icons.home_work;
+        iconData = Icons.home;
         break;
       case "gerente":
         title = "Unidades de juventude";
         subtitle = "Visualizar todas unidades de juventude";
-        iconData = Icons.home_work;
+        iconData = Icons.home;
         break;
       default:
         title = "Adesão";

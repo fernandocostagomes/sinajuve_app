@@ -75,8 +75,8 @@ class _UnidadeDetalhesPageState
         ),
       ),
       subtitle: Text(subtitle == null ? " " : subtitle),
-      tileColor: subtitle == null ? null : Colors.white,
-      leading: Icon(Icons.list_outlined),
+      //tileColor: subtitle == null ? null : Colors.white,
+      leading: Icon(Icons.format_list_bulleted),
       onTap: () {
         push(context, UnidadeListaEstadosPage(uj: uj));
       },

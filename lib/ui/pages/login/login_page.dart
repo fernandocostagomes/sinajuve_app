@@ -17,7 +17,7 @@ class _LoginPageState extends State<LoginPage> {
   final _bloc = LoginBloc();
   var _tUsuario = TextEditingController();
   var _tPwd = TextEditingController();
-  var user = Login();
+  var loginPrefs = Login();
 
    FocusNode _focusPage;
   bool _showProgress = false;
@@ -38,6 +38,7 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    //_checkUser();
     return Scaffold(
       appBar: AppBar(
         title: Text("Sinajuve - Login"),
@@ -47,7 +48,6 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   _body(context) {
-    Future<Login> futureLogin = Login.get();
     return Form(
       key: _formKey,
       child: Container(
@@ -59,20 +59,20 @@ class _LoginPageState extends State<LoginPage> {
                 focusNode: false,
                 controller: _tUsuario =
                 new TextEditingController(
-                    text: user != null  && user.login != ""
-                    ? user.login
-                    : null),
-                hint: user == null ? "Digite seu usuário" : null,
+                    text: loginPrefs != null  && loginPrefs.login != ""
+                    ? loginPrefs.login
+                    : ""),
+                hint: loginPrefs == null ? "Digite seu usuário" : null,
                 validator: _validateUsuario),
             _text("Senha",
                 autoFocus: false,
                 focusNode: true,
                 controller: _tPwd =
                 new TextEditingController(
-                    text: user != null && user.password != ""
-                    ? user.password
-                    : null),
-                hint: user != null
+                    text: loginPrefs != null && loginPrefs.password != ""
+                    ? loginPrefs.password
+                    : ""),
+                hint: loginPrefs != null
                     ? null
                     : "Digite sua senha",
                 pwd: true,
@@ -220,7 +220,10 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   _checkUser() async {
-    user = await Login.get();
+    loginPrefs = await Login.get();
+    setState(() {
+      loginPrefs != null ? _checkedValue = true : _checkedValue = false;
+    });
   }
 }
 
@@ -240,105 +243,3 @@ String _validateSenha(String value) {
   }
   return null;
 }
-
-
-// _body(context) {
-//   Future<Login> futureLogin = Login.get();
-//   return Form(
-//     key: _formKey,
-//     child: Container(
-//       padding: EdgeInsets.all(16),
-//       child: ListView(
-//         children: <Widget>[
-//           FutureBuilder<Login>(
-//             future: futureLogin,
-//             builder: (context, snapshot) {
-//               Login login = snapshot.data;
-//               print(">>> login $login");
-//               return login != null
-//                   ? _text("Usuário",
-//                   autoFocus: true,
-//                   controller: _tUsuario =
-//                   new TextEditingController(text: login.login),
-//                   validator: _validateUsuario)
-//                   : _text("Usuário",
-//                   hint: "Digite seu usuário",
-//                   autoFocus: true,
-//                   controller: _tUsuario,
-//                   validator: _validateUsuario);
-//             },
-//           ),
-//           SizedBox(
-//             height: 10,
-//           ),
-//           FutureBuilder<Login>(
-//             future: futureLogin,
-//             builder: (context, snapshot) {
-//               Login login = snapshot.data;
-//               return login != null
-//                   ? _text("Senha",
-//                   autoFocus: true,
-//                   controller: _tPwd =
-//                   new TextEditingController(text: login.password),
-//                   pwd: true,
-//                   validator: _validateSenha)
-//                   : _text("Senha",
-//                   hint: "Digite sua senha",
-//                   autoFocus: true,
-//                   controller: _tPwd,
-//                   pwd: true,
-//                   validator: _validateSenha);
-//             },
-//           ),
-//           CheckboxListTile(
-//             contentPadding: EdgeInsets.zero,
-//             title: Text("Lembrar senha"),
-//             value: _checkedValue,
-//             onChanged: (newValue) {
-//               setState(() {
-//                 _checkedValue = newValue;
-//                 if (newValue == true) {
-//                   _checkedValue = true;
-//                 }
-//               });
-//             },
-//             controlAffinity:
-//             ListTileControlAffinity.leading, //  <-- leading Checkbox
-//           ),
-//           _button(context, "Login"),
-//           Container(
-//             margin: EdgeInsets.only(top: 20),
-//             child: InkWell(
-//               onTap: null,
-//               child: Text(
-//                 "Cadastre-se",
-//                 textAlign: TextAlign.center,
-//                 style: TextStyle(
-//                     fontSize: 20,
-//                     color: Colors.blue,
-//                     decoration: TextDecoration.underline),
-//               ),
-//             ),
-//           ),
-//           Container(
-//             margin: EdgeInsets.only(top: 20),
-//             child: InkWell(
-//               onTap: _onClickCadastrar,
-//               child: Text(
-//                 "Perdeu a senha?",
-//                 textAlign: TextAlign.center,
-//                 style: TextStyle(
-//                     fontSize: 20,
-//                     color: Colors.blue,
-//                     decoration: TextDecoration.underline),
-//               ),
-//             ),
-//           ),
-//           SizedBox(
-//             height: 20,
-//           ),
-//         ],
-//       ),
-//     ),
-//   );
-// }
