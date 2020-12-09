@@ -25,7 +25,6 @@ class _UnidadeListaEstadosPageState extends State<UnidadeListaEstadosPage> {
   var list_unidades = List();
   var listUnidadeElement = List<UnidadeElement>();
   var list_estados = new List();
-  var list_cidades = List();
 
   @override
   void initState() {
@@ -90,39 +89,6 @@ class _UnidadeListaEstadosPageState extends State<UnidadeListaEstadosPage> {
     }
   }
 
-  Container _body(context) {
-    return Container(
-      padding: const EdgeInsets.fromLTRB(10.0, 10.0, 15.0, 20.0),
-      child: ListView(
-        children: <Widget>[
-          _listTile("Organismos Gestores", uj: "OG"),
-          _listTile("Conselhos de Juventude", uj: "CJ"),
-          _listTile("Organização Social Civil", uj: "OSC"),
-        ],
-      ),
-    );
-  }
-
-  Card _listTile(title, {subtitle, uj}) {
-    return Card(
-        child: ListTile(
-      title: Container(
-        width: double.infinity,
-        child: Text(
-          title,
-          style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
-      subtitle: Text(subtitle == null ? " " : subtitle),
-      tileColor: subtitle == null ? null : Colors.white,
-      leading: Icon(Icons.list_outlined),
-      onTap: () {},
-    ));
-  }
-
   buildListView() {
     final itens = List<String>.generate(
         list_estados.length, (i) => list_estados[i]);
@@ -133,7 +99,6 @@ class _UnidadeListaEstadosPageState extends State<UnidadeListaEstadosPage> {
           title: Text(itens[index]),
           trailing: Icon(Icons.add),
           onTap: () {
-            //push(context, UnidadeListaPorEstadoTipoPage(widget.uj, widget.tipo, itens[index]);
             push(context, UnidadeListaPorEstadoTipoPage(estado: itens[index], tipo: widget.tipo, uj: widget.uj));
           },
         );

@@ -19,7 +19,7 @@ class _LoginPageState extends State<LoginPage> {
   var _tPwd = TextEditingController();
   var user = Login();
 
-  //final _focusSenha = FocusNode();
+   FocusNode _focusPage;
   bool _showProgress = false;
   bool _checkedValue = false;
 
@@ -27,6 +27,13 @@ class _LoginPageState extends State<LoginPage> {
   void initState() {
     super.initState();
     _checkUser();
+    _focusPage = FocusNode();
+  }
+
+  @override
+  void dispose() {
+    _focusPage.dispose();
+    super.dispose();
   }
 
   @override
@@ -49,18 +56,20 @@ class _LoginPageState extends State<LoginPage> {
           children: <Widget>[
             _text("Usuário",
                 autoFocus: true,
+                focusNode: false,
                 controller: _tUsuario =
                 new TextEditingController(
-                    text: user != null
+                    text: user != null  && user.login != ""
                     ? user.login
-                    : ""),
+                    : null),
                 hint: user == null ? "Digite seu usuário" : null,
                 validator: _validateUsuario),
             _text("Senha",
-                autoFocus: true,
+                autoFocus: false,
+                focusNode: true,
                 controller: _tPwd =
                 new TextEditingController(
-                    text: user != null
+                    text: user != null && user.password != ""
                     ? user.password
                     : null),
                 hint: user != null
@@ -73,10 +82,13 @@ class _LoginPageState extends State<LoginPage> {
               title: Text("Lembrar senha"),
               value: _checkedValue,
               onChanged: (newValue) {
+                _checkedValue = newValue;
                 setState(() {
-                  _checkedValue = newValue;
                   if (newValue == true) {
                     _checkedValue = true;
+                    Login login = new Login(login: _tUsuario.text, password: _tPwd.text);
+                    login.save();
+                    _checkUser();
                   }
                 });
               },
@@ -132,13 +144,16 @@ class _LoginPageState extends State<LoginPage> {
     FormFieldValidator<String> validator,
     bool autoFocus,
     TextEditingController controller,
+    bool focusNode,
     pwd = false,
   }) {
     return TextFormField(
       controller: controller,
       obscureText: pwd,
       validator: validator,
-      autofocus: autoFocus == null ? false : autoFocus,
+      autofocus: true,
+      focusNode: focusNode == true ? _focusPage : null,
+      //autofocus: autoFocus == null ? false : autoFocus,
       style: TextStyle(fontSize: 25, color: Colors.blue),
       decoration: InputDecoration(
           labelText: text, hintText: hint, labelStyle: TextStyle(fontSize: 16)),

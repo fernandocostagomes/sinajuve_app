@@ -46,7 +46,7 @@ class _UnidadeDetalhesPageState
     );
   }
 
-  _getTipoUnidade( ){
+  _getTipoUnidade(){
     switch(unidadeDetalhes.tipoDeUnidade)
     {
       case "OG":
@@ -59,19 +59,6 @@ class _UnidadeDetalhesPageState
         return body_osc(context, unidadeDetalhes);
         break;
     }
-  }
-
-  Container _body(context) {
-    return Container(
-      padding: const EdgeInsets.fromLTRB(10.0, 10.0, 15.0, 20.0),
-      child: ListView(
-        children: <Widget>[
-          _listTile("Organismos Gestores", uj: "OG"),
-          _listTile("Conselhos de Juventude", uj: "CJ"),
-          _listTile("Organização Social Civil", uj: "OSC"),
-        ],
-      ),
-    );
   }
 
   Card _listTile(title, {subtitle, uj}) {

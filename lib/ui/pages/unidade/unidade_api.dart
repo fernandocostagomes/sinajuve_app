@@ -51,6 +51,7 @@ class UnidadeApi {
       print("Error ao solicitar dados: $error > $exception");
       return ApiResponse.error(msg: "Não foi possível baixar os dados.");
     }
+    return ApiResponse.error(msg: "Erro desconhecido.");
   }
 
   static Future<ApiResponse<UnidadeDetalhes>> getUnidadeDetalhes(String id) async {

@@ -1,10 +1,14 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
-import 'package:sinajuve_app/ui/pages/adesao/adesao.dart';
 import 'package:sinajuve_app/ui/pages/unidade/unidade_detalhes.dart';
+import 'package:sinajuve_app/ui/utils/download_alert.dart';
+import 'package:path_provider/path_provider.dart';
 
 Container body_og(context, UnidadeDetalhes pUnidadeDetalhes) {
   var unidadeDetalhes = new UnidadeDetalhes();
   unidadeDetalhes = pUnidadeDetalhes;
+  var context2 = context;
   return Container(
     padding: const EdgeInsets.fromLTRB(10.0, 10.0, 15.0, 20.0),
     child: ListView(
@@ -64,7 +68,8 @@ Container body_og(context, UnidadeDetalhes pUnidadeDetalhes) {
                           "Documento 5: Sistema-para-Gestão-do-Prêmio-de-inovação-4.pdf",
                       leading: true,
                       url:
-                          "https://sinajuve.ibict.br/wp-content/uploads/2020/11/Sistema-para-Gest%C3%A3o-do-Pr%C3%AAmio-de-inova%C3%A7%C3%A3o-4.pdf"),
+                          "https://sinajuve.ibict.br/wp-content/uploads/2020/11/Sistema-para-Gest%C3%A3o-do-Pr%C3%AAmio-de-inova%C3%A7%C3%A3o-4.pdf",
+                      context: context),
                   _listTile(
                       "Cópia de documento de identificação com foto e assinatura:",
                       fontSize: 16,
@@ -499,6 +504,7 @@ Container body_cj(context, UnidadeDetalhes pUnidadeDetalhes) {
 
 Container body_osc(context, UnidadeDetalhes pUnidadeDetalhes) {
   var unidadeDetalhes = new UnidadeDetalhes();
+  var buildContext = context;
   unidadeDetalhes = pUnidadeDetalhes;
   return Container(
     padding: const EdgeInsets.fromLTRB(10.0, 10.0, 15.0, 20.0),
@@ -548,6 +554,7 @@ Container body_osc(context, UnidadeDetalhes pUnidadeDetalhes) {
                       subtitle:
                           "Documento 4: Sistema-para-Gestão-do-Prêmio-de-inovação-9.pdf",
                       leading: true,
+                      context: buildContext,
                       url:
                           "https://sinajuve.ibict.br/wp-content/uploads/2020/11/Sistema-para-Gest%C3%A3o-do-Pr%C3%AAmio-de-inova%C3%A7%C3%A3o-9.pdf"),
                   _listTile("Ata de eleição ou posse (mais recente):",
@@ -678,7 +685,7 @@ Card _listTile(title,
     subtitle: Text(subtitle == null ? " " : subtitle),
     tileColor: subtitle == null ? Colors.grey : Colors.white,
     onTap: () {
-      url != "" ? _downloadPDF(url, context) : null;
+      url != "" ? startDownload(context, url, subtitle) : null;
     },
   ));
 }
@@ -696,7 +703,49 @@ Container _titleContainer(text, double fontSize) {
   );
 }
 
-_downloadPDF(url, context) {}
+startDownload(context, String url, String filename) async {
+  try
+  {
+    Directory appDocDir = Platform.isAndroid
+        ? await getExternalStorageDirectory()
+        : await getApplicationDocumentsDirectory();
+    if (Platform.isAndroid) {
+      Directory(appDocDir.path.split('Android')[0] + '${Constants.appName}')
+          .createSync();
+    }
+
+    String path = Platform.isIOS
+        ? appDocDir.path + '/$filename.pdf'
+        : appDocDir.path.split('Android')[0] +
+        '${Constants.appName}/$filename.pdf';
+    print(path);
+    File file = File(path);
+    if (!await file.exists()) {
+      await file.create();
+    } else {
+      await file.delete();
+      await file.create();
+    }
+
+    showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (context) => DownloadAlert(
+        url: url,
+        path: path,
+      ),
+    ).then((v) {
+      // When the download finishes, we then add the book
+      // to our local database
+      if (v != null) {
+      }
+    });
+  }
+  catch(Exception)
+  {
+
+  }
+}
 
 String _parseHistorie(String data) {
   if(data != ""){
@@ -705,3 +754,5 @@ String _parseHistorie(String data) {
   }
   return data;
 }
+
+
