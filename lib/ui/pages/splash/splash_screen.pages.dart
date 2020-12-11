@@ -22,7 +22,7 @@ Widget _introScreen() {
   return Stack(
     children: <Widget>[
       SplashScreen(
-        seconds: 4,
+        seconds: 2,
         gradientBackground: LinearGradient(
           begin: Alignment.topRight,
           end: Alignment.bottomLeft,
@@ -34,7 +34,7 @@ Widget _introScreen() {
       Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            scale: 0.25,
+            scale: 0.1,
             image: AssetImage("assets/images/sinajuve_log_flat_2.png"),
             fit: BoxFit.fitWidth,
           ),

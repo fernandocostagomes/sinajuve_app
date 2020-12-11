@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:sinajuve_app/ui/pages/adesao/adesao.dart';
+import 'package:sinajuve_app/ui/pages/ajuda/ajuda_page.dart';
 import 'package:sinajuve_app/ui/pages/api_response.dart';
 import 'package:sinajuve_app/ui/pages/home/home_page.dart';
 import 'package:sinajuve_app/ui/pages/login/login.dart';
@@ -38,7 +39,7 @@ class _DrawerListState extends State<DrawerList> {
         child: ListView(
           children: <Widget>[
             usuario != null
-                ? _header(usuario.userNicename, usuario.userEmail)
+                ? _header(usuario.userDisplayName, usuario.userEmail, )
                 : _header("Nome:", "Email:"),
             usuario != null ? Container() : _listTileEnter(),
             _getFutureBuilder("gerente"),
@@ -48,7 +49,9 @@ class _DrawerListState extends State<DrawerList> {
               leading: Icon(Icons.help),
               title: Text("Ajuda"),
               subtitle: Text("Dúvidas sobre o Sinajuve..."),
-              onTap: () {},
+              onTap: () {
+                push(context, AjudaPage());
+              },
             ),
             //ListTile builder logout
             usuario != null ? _listTileExit() : Container(),

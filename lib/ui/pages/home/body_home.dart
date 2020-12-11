@@ -44,7 +44,7 @@ Container body_home(context) {
           ],
         ),
         SizedBox(
-          height: 90,
+          height: 80,
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -63,7 +63,7 @@ Container body_home(context) {
           ],
         ),
         SizedBox(
-          height: 90,
+          height: 80,
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,

@@ -8,7 +8,7 @@ alert(BuildContext context, String msg, {Function callback}) {
       return WillPopScope(
         onWillPop: () async => false,
         child: AlertDialog(
-          title: Text("Carros"),
+          title: Text("Sinajuve"),
           content: Text(msg),
           actions: <Widget>[
             FlatButton(

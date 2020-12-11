@@ -676,7 +676,7 @@ Card _listTile(title,
     subtitle: Text(subtitle == null ? " " : subtitle),
     //tileColor: subtitle == null ? Colors.grey : Colors.white,
     onTap: () {
-      url != "" ? startDownload(context, url, subtitle) : null;
+      //url != "" ? startDownload(context, url, subtitle) : null;
     },
   ));
 }
