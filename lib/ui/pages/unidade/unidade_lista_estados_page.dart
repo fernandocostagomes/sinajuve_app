@@ -1,6 +1,4 @@
 import 'dart:collection';
-
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:sinajuve_app/ui/pages/login/login_page.dart';
 import 'package:sinajuve_app/ui/pages/unidade/unidade.dart';
@@ -18,6 +16,8 @@ class UnidadeListaEstadosPage extends StatefulWidget {
   @override
   _UnidadeListaEstadosPageState createState() => _UnidadeListaEstadosPageState();
 }
+
+
 
 class _UnidadeListaEstadosPageState extends State<UnidadeListaEstadosPage> {
   var isLoading = false;
@@ -72,7 +72,7 @@ class _UnidadeListaEstadosPageState extends State<UnidadeListaEstadosPage> {
         isLoading = false;
       });
     } else {
-      push(context, LoginPage());
+      await push(context, LoginPage()).whenComplete(() => _carregarDados());
     }
   }
 

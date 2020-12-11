@@ -209,7 +209,8 @@ class _LoginPageState extends State<LoginPage> {
           textColor: Colors.black,
           fontSize: 16.0
       );
-      push(context, HomePage());
+      //pop(context, HomePage());
+      pop(context, HomePage());
     } else {
       alert(context,
           response.msg == null ? "Usuário ou senha inválido!" : response.msg);

@@ -3,7 +3,6 @@ import 'package:sinajuve_app/ui/pages/login/login_page.dart';
 import 'package:sinajuve_app/ui/pages/unidade/widget_unidade/body_unidade.dart';
 import 'package:sinajuve_app/ui/pages/unidade/unidade_bloc.dart';
 import 'package:sinajuve_app/ui/pages/unidade/unidade_detalhes.dart';
-import 'package:sinajuve_app/ui/pages/unidade/unidade_lista_estados_page.dart';
 import 'package:sinajuve_app/ui/utils/nav.dart';
 
 import '../api_response.dart';
@@ -61,28 +60,6 @@ class _UnidadeDetalhesPageState
     }
   }
 
-  Card _listTile(title, {subtitle, uj}) {
-    return Card(
-        child: ListTile(
-      title: Container(
-        width: double.infinity,
-        child: Text(
-          title,
-          style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
-      subtitle: Text(subtitle == null ? " " : subtitle),
-      //tileColor: subtitle == null ? null : Colors.white,
-      leading: Icon(Icons.format_list_bulleted),
-      onTap: () {
-        push(context, UnidadeListaEstadosPage(uj: uj));
-      },
-    ));
-  }
-
   void _carregarDados() async {
     ApiResponse apiResponse = await _bloc.getDetalhes(widget.id);
     if(apiResponse.ok){
@@ -91,7 +68,7 @@ class _UnidadeDetalhesPageState
         isLoading = false;
       });
     }    else{
-      push(context, LoginPage());
+      await push(context, LoginPage()).whenComplete(() => _carregarDados());
     }
   }
 }

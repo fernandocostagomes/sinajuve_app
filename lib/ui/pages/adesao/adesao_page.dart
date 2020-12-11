@@ -64,7 +64,7 @@ class _AdesaoPageState extends State<AdesaoPage> {
         isLoading = false;
       });
     }    else{
-      push(context, LoginPage());
+      await push(context, LoginPage()).whenComplete(() => _carregarDados());
     }
   }
 }
