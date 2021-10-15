@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sinajuve_app/ui/pages/login/login.dart';
 import 'package:sinajuve_app/ui/pages/login/login_page.dart';
 import 'package:sinajuve_app/ui/pages/unidade/widget_unidade/body_unidade.dart';
 import 'package:sinajuve_app/ui/pages/unidade/unidade_bloc.dart';
@@ -68,7 +69,8 @@ class _UnidadeDetalhesPageState
         isLoading = false;
       });
     }    else{
-      await push(context, LoginPage()).whenComplete(() => _carregarDados());
+      Login loginPrefs = await Login.get();
+      await push(context, LoginPage(loginPrefs.login)).whenComplete(() => _carregarDados());
     }
   }
 }

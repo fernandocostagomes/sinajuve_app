@@ -1,5 +1,6 @@
 import 'dart:collection';
 import 'package:flutter/material.dart';
+import 'package:sinajuve_app/ui/pages/login/login.dart';
 import 'package:sinajuve_app/ui/pages/login/login_page.dart';
 import 'package:sinajuve_app/ui/pages/unidade/unidade.dart';
 import 'package:sinajuve_app/ui/pages/unidade/unidade_bloc.dart';
@@ -16,8 +17,6 @@ class UnidadeListaEstadosPage extends StatefulWidget {
   @override
   _UnidadeListaEstadosPageState createState() => _UnidadeListaEstadosPageState();
 }
-
-
 
 class _UnidadeListaEstadosPageState extends State<UnidadeListaEstadosPage> {
   var isLoading = false;
@@ -72,7 +71,8 @@ class _UnidadeListaEstadosPageState extends State<UnidadeListaEstadosPage> {
         isLoading = false;
       });
     } else {
-      await push(context, LoginPage()).whenComplete(() => _carregarDados());
+      Login loginPrefs = await Login.get();
+      await push(context, LoginPage(loginPrefs.login)).whenComplete(() => _carregarDados());
     }
   }
 
@@ -83,8 +83,11 @@ class _UnidadeListaEstadosPageState extends State<UnidadeListaEstadosPage> {
         {
           todosEstadoslist.add(estado.estado);
         }
+      todosEstadoslist.sort();
       list_estados = LinkedHashSet<String>.from(todosEstadoslist).toList();
-    } catch (error, exception) {
+
+
+    }catch (error, exception) {
       return;
     }
   }
@@ -96,7 +99,7 @@ class _UnidadeListaEstadosPageState extends State<UnidadeListaEstadosPage> {
       itemCount: itens.length,
       itemBuilder: (context, index) {
         return ListTile(
-          title: Text(itens[index]),
+          title: Text(_tratarNomeEstado(itens[index])),
           trailing: Icon(Icons.add),
           onTap: () {
             push(context, UnidadeListaPorEstadoTipoPage(estado: itens[index], tipo: widget.tipo, uj: widget.uj));
@@ -104,5 +107,122 @@ class _UnidadeListaEstadosPageState extends State<UnidadeListaEstadosPage> {
         );
       },
     );
+  }
+
+  _tratarNomeEstado(uf)
+  {
+    switch (uf) {
+      case "RO":
+        return "Rondônia";
+        break;
+
+      case "AC":
+        return "Acre";
+        break;
+
+      case "AM":
+        return "Amazonas";
+        break;
+
+      case "RR":
+        return "Roraima";
+        break;
+
+      case "PA":
+        return "Pará";
+        break;
+
+      case "AP":
+        return "Amapá";
+        break;
+
+      case "TO":
+        return "Tocantins";
+        break;
+
+      case "MA":
+        return "Maranhão";
+        break;
+
+      case "PI":
+        return "Piauí";
+        break;
+
+      case "CE":
+        return "Ceará";
+        break;
+
+      case "RN":
+        return "Rio Grande do Norte";
+        break;
+
+      case "PB":
+        return "Paraíba";
+        break;
+
+      case "PE":
+        return "Pernambuco";
+        break;
+
+      case "AL":
+        return "Alagoas";
+        break;
+
+      case "SE":
+        return "Sergipe";
+        break;
+
+      case "BA":
+        return "Bahia";
+        break;
+
+      case "MG":
+        return "Minas Gerais";
+        break;
+
+      case "ES":
+        return "Espírito Santo";
+        break;
+
+      case "RJ":
+        return "Rio de Janeiro";
+        break;
+
+      case "SP":
+        return "São Paulo";
+        break;
+
+      case "PR":
+        return "Paraná";
+        break;
+
+      case "SC":
+        return "Santa Catarina";
+        break;
+
+      case "RS":
+        return "Rio Grande do Sul";
+        break;
+
+      case "MS":
+        return "Mato Grosso do Sul";
+        break;
+
+      case "MT":
+        return "Mato Grosso";
+        break;
+
+      case "GO":
+        return "Goiás";
+        break;
+
+      case "DF":
+        return "Distrito Federal";
+        break;
+
+      default:
+        return uf;
+        break;
+    }
   }
 }

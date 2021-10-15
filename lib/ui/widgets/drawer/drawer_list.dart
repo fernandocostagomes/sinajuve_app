@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:sinajuve_app/ui/pages/adesao/adesao.dart';
-import 'package:sinajuve_app/ui/pages/ajuda/ajuda_page.dart';
+import 'package:sinajuve_app/ui/pages/ajuda/sobre_page.dart';
 import 'package:sinajuve_app/ui/pages/api_response.dart';
 import 'package:sinajuve_app/ui/pages/home/home_page.dart';
 import 'package:sinajuve_app/ui/pages/login/login.dart';
@@ -39,18 +39,21 @@ class _DrawerListState extends State<DrawerList> {
         child: ListView(
           children: <Widget>[
             usuario != null
-                ? _header(usuario.userDisplayName, usuario.userEmail, )
-                : _header("Nome:", "Email:"),
+                ? _header(
+                    usuario.userDisplayName,
+                    usuario.userEmail,
+                  )
+                : _header("Olá,", "Seja bem-vindo ao Sinajuve!"),
             usuario != null ? Container() : _listTileEnter(),
             _getFutureBuilder("gerente"),
             _getFutureBuilder("avaliador_sinajuve"),
             _getFutureBuilder("gestor"),
             ListTile(
               leading: Icon(Icons.help),
-              title: Text("Ajuda"),
+              title: Text("Sobre"),
               subtitle: Text("Dúvidas sobre o Sinajuve..."),
               onTap: () {
-                push(context, AjudaPage());
+                push(context, SobrePage());
               },
             ),
             //ListTile builder logout
@@ -63,12 +66,9 @@ class _DrawerListState extends State<DrawerList> {
 
   Widget _getFutureBuilder(p_role) {
     if (roles != null) {
-      return 
-        _isRoles(p_role) == true
-              ? _listTileRoles(p_role)
-              : Container();
-        } else
-          return Container();
+      return _isRoles(p_role) == true ? _listTileRoles(p_role) : Container();
+    } else
+      return Container();
   }
 
   bool _isRoles(String pRole) {
@@ -142,9 +142,11 @@ class _DrawerListState extends State<DrawerList> {
   UserAccountsDrawerHeader _header(accountname, accountemail) {
     var names = accountname.split(" ");
     String letter;
-    if (names.length > 1)
+    if (names.length > 1) {
       letter = names[0].substring(0, 1).toUpperCase() +
           names[1].substring(0, 1).toUpperCase();
+    } else if (names[0] == "Olá,")
+      letter = "N";
     else
       letter = names[0].substring(0, 1).toUpperCase();
     //letter = letter.toUpperCase();
@@ -176,7 +178,8 @@ class _DrawerListState extends State<DrawerList> {
         title: Text("Entrar"),
         subtitle: Text("Autenticar no servidor..."),
         onTap: () async {
-          await push(context, LoginPage()).whenComplete(() => _carregarDados());
+          Login loginPrefs = await Login.get();
+          await push(context, LoginPage(loginPrefs == null ? "user" : loginPrefs.login)).whenComplete(() => _carregarDados());
         });
   }
 
@@ -193,8 +196,7 @@ class _DrawerListState extends State<DrawerList> {
   void _carregarDados() async {
     usuario = await Usuario.get();
     roles = await Roles.get();
-    setState((){
-    });
+    setState(() {});
   }
 
   _onClickLogout(BuildContext context) {

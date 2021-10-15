@@ -4,6 +4,7 @@ import 'package:sinajuve_app/ui/pages/adesao/adesao.dart';
 import 'package:sinajuve_app/ui/pages/adesao/adesao_bloc.dart';
 import 'package:sinajuve_app/ui/pages/adesao/widget_adesao/body_adesao.dart';
 import 'package:sinajuve_app/ui/pages/api_response.dart';
+import 'package:sinajuve_app/ui/pages/login/login.dart';
 import 'package:sinajuve_app/ui/pages/login/login_page.dart';
 import 'package:sinajuve_app/ui/utils/nav.dart';
 
@@ -64,7 +65,8 @@ class _AdesaoPageState extends State<AdesaoPage> {
         isLoading = false;
       });
     }    else{
-      await push(context, LoginPage()).whenComplete(() => _carregarDados());
+      Login loginPrefs = await Login.get();
+      await push(context, LoginPage(loginPrefs.login)).whenComplete(() => _carregarDados());
     }
   }
 }

@@ -34,9 +34,7 @@ Widget _introScreen() {
       Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            scale: 0.1,
-            image: AssetImage("assets/images/sinajuve_log_flat_2.png"),
-            fit: BoxFit.fitWidth,
+            image: AssetImage("assets/images/logo_sinajuve-_1_.png"),
           ),
         ),
       ),

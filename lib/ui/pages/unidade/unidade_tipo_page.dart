@@ -36,8 +36,8 @@ class _UnidadeTipoPageState
       padding: const EdgeInsets.fromLTRB(10.0, 10.0, 15.0, 20.0),
       child: ListView(
         children: <Widget>[
-          _listTile("Organismos Gestores", uj: "OG"),
           _listTile("Conselhos de Juventude", uj: "CJ"),
+          _listTile("Organismos Gestores", uj: "OG"),
           _listTile("Organização Social Civil", uj: "OSC"),
         ],
       ),

@@ -8,6 +8,9 @@ import 'package:sinajuve_app/ui/utils/nav.dart';
 import 'login_bloc.dart';
 
 class LoginPage extends StatefulWidget {
+  LoginPage(this.userOld);
+  final String userOld;
+
   @override
   _LoginPageState createState() => _LoginPageState();
 }
@@ -18,8 +21,9 @@ class _LoginPageState extends State<LoginPage> {
   var _tUsuario = TextEditingController();
   var _tPwd = TextEditingController();
   var loginPrefs = Login();
+  var _showPwd = false;
 
-   FocusNode _focusPage;
+  FocusNode _focusPage;
   bool _showProgress = false;
   bool _checkedValue = false;
 
@@ -57,28 +61,25 @@ class _LoginPageState extends State<LoginPage> {
             _text("Usuário",
                 autoFocus: true,
                 focusNode: false,
-                controller: _tUsuario =
-                new TextEditingController(
-                    text: loginPrefs != null  && loginPrefs.login != ""
-                    ? loginPrefs.login
-                    : ""),
+                controller: _tUsuario = new TextEditingController(
+                    text: loginPrefs != null && loginPrefs.login != ""
+                        ? loginPrefs.login
+                        : _tUsuario.text == null ? "" : _tUsuario.text),
                 hint: loginPrefs == null ? "Digite seu usuário" : null,
                 validator: _validateUsuario),
-            _text("Senha",
+            _textPwd("Senha",
                 autoFocus: false,
                 focusNode: true,
-                controller: _tPwd =
-                new TextEditingController(
+                controller: _tPwd = new TextEditingController(
                     text: loginPrefs != null && loginPrefs.password != ""
-                    ? loginPrefs.password
-                    : ""),
-                hint: loginPrefs != null
-                    ? null
-                    : "Digite sua senha",
+                        ? loginPrefs.password
+                        : _tPwd.text == null ? "" : _tPwd.text),
+                hint: loginPrefs != null ? null : "Digite sua senha",
                 pwd: true,
                 validator: _validateSenha),
             CheckboxListTile(
               contentPadding: EdgeInsets.zero,
+              activeColor: Colors.black,
               title: Text("Lembrar senha"),
               value: _checkedValue,
               onChanged: (newValue) {
@@ -86,27 +87,27 @@ class _LoginPageState extends State<LoginPage> {
                 setState(() {
                   if (newValue == true) {
                     _checkedValue = true;
-                    Login login = new Login(login: _tUsuario.text, password: _tPwd.text);
+                    Login login =
+                    new Login(login: _tUsuario.text, password: _tPwd.text);
                     login.save();
                     _checkUser();
                   }
                 });
               },
-              controlAffinity: ListTileControlAffinity
-                  .leading, //  <-- leading Checkbox
+              controlAffinity:
+              ListTileControlAffinity.leading, //  <-- leading Checkbox
             ),
             _button(context, "Login"),
             Container(
-              margin: EdgeInsets.only(
-                  top: 20),
+              margin: EdgeInsets.only(top: 20),
               child: InkWell(
-                onTap: null,
-                child: Text("Cadastre-se",
-                  textAlign: TextAlign.center,
+                onTap: _onClickCadastrese,
+                child: Text(
+                  "Cadastre-se",
+                  textAlign: TextAlign.start,
                   style: TextStyle(
-                      fontSize: 20,
-                      color: Colors.blue,
-                      decoration: TextDecoration.underline),
+                      fontSize: 18,
+                      color: Colors.black,),
                 ),
               ),
             ),
@@ -114,15 +115,14 @@ class _LoginPageState extends State<LoginPage> {
               margin: EdgeInsets.only(
                 top: 20,
               ),
-              child:
-              InkWell(
-                onTap: _onClickCadastrar,
-                child: Text("Perdeu a senha?",
-                  textAlign: TextAlign.center,
+              child: InkWell(
+                onTap: _onClickPerdeuSenha,
+                child: Text(
+                  "Perdeu a senha?",
+                  textAlign: TextAlign.start,
                   style: TextStyle(
-                    fontSize: 20,
-                      color: Colors.blue,
-                      decoration: TextDecoration.underline),
+                    fontSize: 18,
+                    color: Colors.black,),
                 ),
               ),
             ),
@@ -135,8 +135,12 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  _onClickCadastrar() async {
-    push(context, HomePage(), replace: true);
+  _onClickPerdeuSenha() async {
+    abrirUrl("https://sinajuve.ibict.br/lostpassword/");
+  }
+
+  _onClickCadastrese() async {
+    abrirUrl("https://sinajuve.ibict.br/signup/");
   }
 
   _text(text, {
@@ -154,17 +158,59 @@ class _LoginPageState extends State<LoginPage> {
       autofocus: true,
       focusNode: focusNode == true ? _focusPage : null,
       //autofocus: autoFocus == null ? false : autoFocus,
-      style: TextStyle(fontSize: 25, color: Colors.blue),
+      style: TextStyle(fontSize: 25, color: Colors.black),
       decoration: InputDecoration(
-          labelText: text, hintText: hint, labelStyle: TextStyle(fontSize: 16)),
+        labelText: text,
+        hintText: hint,
+        labelStyle: TextStyle(fontSize: 16, color: Colors.black),
+
+      )
+      ,
     );
   }
+
+  _textPwd(text, {
+    String hint,
+    FormFieldValidator<String> validator,
+    bool autoFocus,
+    TextEditingController controller,
+    bool focusNode,
+    pwd = false,
+  }) {
+    return TextFormField(
+        controller: controller,
+        obscureText: _showPwd == false ? true : false,
+        validator: validator,
+        autofocus: true,
+        focusNode: focusNode == true ? _focusPage : null,
+        //autofocus: autoFocus == null ? false : autoFocus,
+        style: TextStyle(fontSize: 25, color: Colors.black),
+    decoration: InputDecoration(
+    labelText: text,
+    hintText: hint,
+    labelStyle: TextStyle(fontSize: 16, color: Colors.black),
+    suffixIcon: GestureDetector(
+    child: Icon( _showPwd == false ? Icons.visibility_off : Icons.visibility, color: Colors.black,
+    ),
+    onTap: (){
+      setState(() {
+        _showPwd = !_showPwd;
+      });
+    }),
+
+    )
+    ,
+    );
+    }
 
   Container _button(context, text) {
     return Container(
       height: 46,
       child: RaisedButton(
-        color: Colors.blue,
+        color: Colors.green,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15.0),
+        ),
         child: _showProgress
             ? Center(
           child: CircularProgressIndicator(
@@ -207,11 +253,16 @@ class _LoginPageState extends State<LoginPage> {
           timeInSecForIosWeb: 3,
           backgroundColor: Colors.white,
           textColor: Colors.black,
-          fontSize: 16.0
-      );
-      //pop(context, HomePage());
-      pop(context, HomePage());
+          fontSize: 16.0);
+      if(user ==  widget.userOld)
+        {
+          pop(context, HomePage());
+        }
+      else
+        push(context, HomePage());
+
     } else {
+      response.msg = "Usuário ou senha inválido!";
       alert(context,
           response.msg == null ? "Usuário ou senha inválido!" : response.msg);
     }

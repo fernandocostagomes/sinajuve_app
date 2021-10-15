@@ -12,7 +12,7 @@ import 'icon_pages/public_pol_sub_page.dart';
 Container body_home(context) {
   Size size = MediaQuery.of(context).size;
   return Container(
-    padding: const EdgeInsets.fromLTRB(15.0, 60.0, 15.0, 20.0),
+    padding: const EdgeInsets.fromLTRB(15.0, 50.0, 15.0, 20.0),
     decoration: BoxDecoration(
       image: DecorationImage(
         image: AssetImage("assets/images/ilustra-1_pequena.png"),
@@ -44,7 +44,7 @@ Container body_home(context) {
           ],
         ),
         SizedBox(
-          height: 80,
+          height: 50,
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -63,14 +63,14 @@ Container body_home(context) {
           ],
         ),
         SizedBox(
-          height: 80,
+          height: 50,
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
             _expandedIcon(
                 context, "assets/images/icones_2_forum.png", ForumPage()),
-            _expandedIcon(context, "assets/images/icones_pasta_min_300x300.png",
+            _expandedIcon(context, "assets/images/icone-2_noticias.png",
                 NoticiasPage()),
           ],
         ),
@@ -156,9 +156,13 @@ Container body_home2(context) {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               _expandedIcon(
-                  context, "assets/images/icones_2_forum.png", ForumPage()),
-              _expandedIcon(context,
-                  "assets/images/icones_pasta_min_300x300.png", NoticiasPage()),
+                  context,
+                  "assets/images/icones_2_forum.png",
+                  ForumPage()),
+              _expandedIcon(
+                  context,
+                  "assets/images/icones_pasta_min_300x300.png",
+                  NoticiasPage()),
             ],
           ),
         ),
