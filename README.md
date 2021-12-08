@@ -1,6 +1,10 @@
-Aplicativo  Sinajuve - Governo Federal
+Aplicativo  Sinajuve
 
-Aplicativo desenvolvido para o Governo Federal, SNJ.
+MINISTÉRIO DA CIÊNCIA, TECNOLOGIA E INOVAÇÕES
+Instituto Brasileiro de Informação em Ciência e Tecnologia
+
+MINISTÉRIO DA MULHER, DA FAMÍLIA E DOS DIREITOS HUMANOS
+Secretaria Nacional da Juventude
 
 O aplicativo do Sinajuve tem relação intrínseca com o Sistema Sinajuve, procurando inicialmente facilitar o acompanhamento do processo de adesão. 
 
